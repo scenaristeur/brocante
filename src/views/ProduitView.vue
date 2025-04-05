@@ -37,9 +37,9 @@
 
       <div class="mb-3">
         <label for="images" class="form-label">Images</label>
-        <input type="file" class="form-control" id="images" v-on:change="update_images" />
+        <input type="file" class="form-control" id="images" v-on:change="uploadImage" />
       </div>
-
+      Uploading : {{ uploading }}
       <!-- <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -53,21 +53,47 @@
 </template>
 
 <script>
+import { supabase } from "@/lib/supabaseClient";
 export default {
   name: "ProduitView",
-  // data() {
-  //   // return {
-  //   //   produit: null,
-  //   // };
-  // },
+  data() {
+    return {
+      uploading: false,
+    };
+  },
   methods: {
     enregistrer() {
       this.produit.catalogue = this.catalogue.id;
       this.$store.dispatch("broc/enregistrerProduit", this.produit);
     },
-    update_images(event) {
-      // this.produit.images =
+    async uploadImage(event) {
+      this.produit.images == null ? (this.produit.images = []) : null;
       console.log(event.target.files);
+      let files = event.target.files;
+      try {
+        this.uploading = true;
+        if (!files || files.length === 0) {
+          throw new Error("You must select an image to upload.");
+        }
+        const file = files[0];
+        const fileExt = file.name.split(".").pop();
+        const filePath = `${Math.random()}.${fileExt}`;
+        const { error: uploadError } = await supabase.storage
+          .from("produit-images/public")
+          .upload(filePath, file);
+        if (uploadError) throw uploadError;
+        console.log("update:path", filePath);
+        console.log("upload");
+
+        if (this.produit.images.indexOf(filePath) === -1) {
+          this.produit.images.push(filePath);
+          console.log(this.produit);
+        }
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        this.uploading = false;
+      }
     },
   },
   watch: {
