@@ -27,7 +27,13 @@
       </div>
       <div class="mb-3">
         <label for="qtite" class="form-label">Quantité</label>
-        <input type="email" class="form-control" id="qtite" v-model="produit.quantite" />
+        <input
+          type="number"
+          class="form-control"
+          id="qtite"
+          v-model="produit.quantite"
+          value="1"
+        />
       </div>
 
       <div class="mb-3">

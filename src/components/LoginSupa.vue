@@ -10,6 +10,8 @@
     <div v-else>
       {{ user.email }}
       <button @click="logout">Déconnexion</button>
+      <hr />
+      <router-link to="/catalogue-gestion">Catalogues</router-link>
     </div>
   </div>
 </template>

@@ -16,12 +16,15 @@
       </button>
     </div>
   </div>
+  <div v-else>Connectez-vous</div>
 </template>
 
 <script>
 export default {
   name: "MyCatalogues",
-  async mounted() {},
+  async mounted() {
+    this.$store.dispatch("broc/getMyCatalogues");
+  },
   methods: {
     openCatalogue(id) {
       this.$store.dispatch("broc/getCatalogue", id);

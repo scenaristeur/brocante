@@ -17,38 +17,79 @@
 </template>
 
 <script>
+import { supabase } from "@/lib/supabaseClient";
 import ProduitCard from "@/components/ProduitCard.vue";
 
 export default {
   name: "HomeView",
   components: { ProduitCard },
+
   data() {
     return {
       // Exemple de données statiques
       produits: [
-        {
-          id: 1,
-          titre: "Vieux Fauteuil",
-          description: "Confortable et plein de charme.",
-          image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Fauteuil",
-          prix: "100€",
-        },
-        {
-          id: 2,
-          titre: "Lampe Rétro",
-          description: "Éclairage vintage pour une ambiance unique.",
-          image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Lampe",
-          prix: "50€",
-        },
-        {
-          id: 3,
-          titre: "Table en Bois",
-          description: "Authentique table de brocante en bois massif.",
-          image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Table",
-          prix: "150€",
-        },
+        // {
+        //   id: 1,
+        //   titre: "Vieux Fauteuil",
+        //   description: "Confortable et plein de charme.",
+        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Fauteuil",
+        //   prix: "100€",
+        // },
+        // {
+        //   id: 2,
+        //   titre: "Lampe Rétro",
+        //   description: "Éclairage vintage pour une ambiance unique.",
+        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Lampe",
+        //   prix: "50€",
+        // },
+        // {
+        //   id: 3,
+        //   titre: "Table en Bois",
+        //   description: "Authentique table de brocante en bois massif.",
+        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Table",
+        //   prix: "150€",
+        // },
+        // {
+        //   id: 4,
+        //   titre: "Vieux Fauteuil",
+        //   description: "Confortable et plein de charme.",
+        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Fauteuil",
+        //   prix: "100€",
+        // },
+        // {
+        //   id: 5,
+        //   titre: "Lampe Rétro",
+        //   description: "Éclairage vintage pour une ambiance unique.",
+        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Lampe",
+        //   prix: "50€",
+        // },
+        // {
+        //   id: 6,
+        //   titre: "Table en Bois",
+        //   description: "Authentique table de brocante en bois massif.",
+        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Table",
+        //   prix: "150€",
+        // },
       ],
     };
+  },
+  mounted() {
+    this.getProduits();
+  },
+  methods: {
+    async getProduits() {
+      const { data, error } = await supabase
+        .from("produits")
+        .select("*")
+        .order("updated", { ascending: false })
+        .limit(10);
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(data);
+        this.produits = data;
+      }
+    },
   },
 };
 </script>

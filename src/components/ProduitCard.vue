@@ -1,19 +1,53 @@
 <template>
-  <div class="card">
-    <img :src="produit.image" :alt="produit.titre" />
+  <div class="card" @click="showProduit(produit.id)">
+    <img :src="src" :alt="produit.name" />
     <div class="card-body">
-      <h3>{{ produit.titre }}</h3>
+      <h3>{{ produit.name }}</h3>
       <p>{{ produit.description }}</p>
       <p class="price">{{ produit.prix }}</p>
+      <!-- <p class="quantite">x{{ produit.quantite }}</p> -->
     </div>
   </div>
 </template>
 
 <script>
+import { supabase } from "@/lib/supabaseClient";
 export default {
   name: "ProduitCard",
   props: {
     produit: { type: Object, required: true },
+  },
+  data() {
+    return {
+      src: "",
+    };
+  },
+  mounted() {
+    this.updateImage();
+  },
+  methods: {
+    showProduit(id) {
+      this.$store.dispatch("broc/getProduit", id);
+      this.$router.push({
+        name: "produit-show",
+      });
+    },
+    async updateImage() {
+      if (this.produit.images && this.produit.images[0]) {
+        try {
+          const { data, error } = await supabase.storage
+            .from("produit-images/public")
+            .download(this.produit.images[0]);
+          if (error) throw error;
+          this.src = URL.createObjectURL(data);
+        } catch (error) {
+          console.error("Error downloading image: ", error.message);
+        }
+      } else {
+        this.src =
+          "https://dummyimage.com/300x200/000000/0fffff.png&text=" + this.produit.name;
+      }
+    },
   },
 };
 </script>
