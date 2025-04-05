@@ -11,9 +11,6 @@ import MyCatalogues from "../views/MyCatalogues.vue";
 export default {
   name: "CatalogueGestion",
   components: { CatalogueCreate, MyCatalogues },
-  mounted() {
-    this.$store.dispatch("broc/checkUser");
-  },
 
   computed: {
     user() {

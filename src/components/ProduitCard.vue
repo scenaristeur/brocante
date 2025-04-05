@@ -4,7 +4,7 @@
     <div class="card-body">
       <h3>{{ produit.name }}</h3>
       <p>{{ produit.description }}</p>
-      <p class="price">{{ produit.prix }}</p>
+      <p class="price">{{ produit.prix }} €</p>
       <!-- <p class="quantite">x{{ produit.quantite }}</p> -->
     </div>
   </div>

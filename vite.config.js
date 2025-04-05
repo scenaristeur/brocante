@@ -5,11 +5,11 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { VitePWA } from 'vite-plugin-pwa'
 // import { resolve, dirname } from 'node:path'
-const base = process.env.NODE_ENV === 'production' ? '/brocante/' : '/'
+// const base = process.env.NODE_ENV === 'production' ? '/brocante/' : '/'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: base,
+  // base: base,
   plugins: [
     vue(),
     vueDevTools(),
