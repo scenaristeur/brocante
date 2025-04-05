@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { VitePWA } from 'vite-plugin-pwa'
-import { resolve, dirname } from 'node:path'
+// import { resolve, dirname } from 'node:path'
 const base = process.env.NODE_ENV === 'production' ? '/brocante/' : '/'
 
 // https://vite.dev/config/
