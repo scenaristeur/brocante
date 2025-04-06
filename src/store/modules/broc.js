@@ -13,6 +13,7 @@ const mutations = {
   setUser(state, u) {
     console.log('user', u)
     state.user = u
+    this.dispatch('broc/getMyProfile')
   },
   setMyCatalogues(state, c) {
     state.myCatalogues = c
@@ -25,6 +26,9 @@ const mutations = {
   },
   setProduits(state, p) {
     state.produits = p
+  },
+  setProfile(state, p) {
+    state.profile = p
   },
 
   // updateDoc(state, newDoc) {
@@ -153,6 +157,20 @@ const actions = {
   async saveProfile(context, profile) {
     const { data, error } = await supabase.from('profiles').upsert(profile)
     console.log(data, error)
+    if (error) {
+      console.log(error)
+    }
+  },
+  async getMyProfile(context) {
+    const { data, error } = await supabase.from('profiles').select().eq('id', context.state.user.id)
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(data)
+      if (data.length > 0) {
+        context.commit('setProfile', data[0])
+      }
+    }
   },
   // async checkSession(context) {
   //   localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString())

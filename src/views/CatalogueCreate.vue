@@ -60,6 +60,7 @@ export default {
         console.error("Error creating catalogue:", error);
       } else {
         console.log("Catalogue created successfully:", data);
+        this.$store.dispatch("broc/getMyCatalogues");
       }
     },
   },

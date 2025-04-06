@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div v-if="catalogue && user && catalogue.owner == user.id">
-      Owner
       <button @click="editProduit()" class="btn btn-primary">Editer le produit</button>
     </div>
     <div class="row hero">
@@ -18,9 +17,7 @@
         <CarousselImages :images="produit.images" />
         <hr />
         Updated:
-        {{
-          produit.updated_at && new Date(produit.updated_at).toLocaleDateString()
-        }}
+        {{ produit.updated_at && new Date(produit.updated_at).toLocaleDateString() }}
         catalogue:
         {{ produit.catalogue }}
       </div>

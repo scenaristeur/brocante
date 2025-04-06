@@ -1,7 +1,7 @@
 <template>
   <div>
-    Produit {{ produit }}
-    <hr />
+    <!-- Produit {{ produit }}
+    <hr /> -->
 
     <div>
       <div class="mb-3">
