@@ -72,18 +72,28 @@
             {{ catalogueOwnerProfile.description }}
           </p>
 
-          <a class="btn btn-primary" :href="'mailto: ' + catalogueOwnerProfile.email"
-            >Contacter par mail</a
+          <a
+            class="btn btn-primary btn-block m-2"
+            :href="
+              'mailto: ' +
+              catalogueOwnerProfile.email +
+              '?subject=[Brocante App] ' +
+              produit.name +
+              '&body=Bonjour, je suis intéressé par le produit : ' +
+              produit.name +
+              ' trouvé sur Brocante App (https://brocante-mu.vercel.app/)\n\n'
+            "
+            ><i class="bi bi-envelope"></i> mail</a
           >
 
           <a
             v-if="catalogueOwnerProfile.phone_number"
             :href="'tel:' + catalogueOwnerProfile.phone_number"
-            class="btn btn-primary"
-            >Contacter par téléphone</a
+            class="btn btn-success btn-block m-2"
+            ><i class="bi bi-telephone-outbound"></i> appeler</a
           >
           <button disabled href="#" class="btn btn-primary">
-            Contacter par message interne
+            <i class="bi bi-chat-left"></i> message interne
           </button>
         </div>
       </div>

@@ -1,10 +1,11 @@
 <template>
   <div class="card" @click="showProduit(produit.id)">
     <div
+      v-if="produit.images.length > 1"
       class="badge text-bg-light"
-      style="z-index: 2; width: 2em; position: absolute; top: 0; right: 0"
+      style="z-index: 2; width: auto; position: absolute; top: 0; right: 0"
     >
-      {{ produit.images.length }}
+      {{ produit.images.length }} <i class="bi bi-image"></i>
     </div>
     <img :src="src" :alt="produit.name" />
     <div class="card-body">

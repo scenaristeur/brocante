@@ -1,5 +1,9 @@
 # brocante
 
+# TODO
+
+- vous devez être connecté pour voir les coordonnées d'un vendeur + enregistrer les consultations ?
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
