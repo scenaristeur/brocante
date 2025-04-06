@@ -42,12 +42,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <img
-            :src="src"
-            alt="Avatar"
-            class="avatar image"
-            style="height: 80%, width: 80% "
-          />
+          <img :src="src" alt="Avatar" style="width: 100%" />
         </div>
         <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
