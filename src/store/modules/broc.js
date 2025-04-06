@@ -14,7 +14,9 @@ const mutations = {
   setUser(state, u) {
     console.log('user', u)
     state.user = u
-    this.dispatch('broc/getMyProfile')
+    if (u) {
+      this.dispatch('broc/getMyProfile')
+    }
   },
   setMyCatalogues(state, c) {
     state.myCatalogues = c
