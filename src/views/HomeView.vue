@@ -4,6 +4,7 @@
     <header class="hero">
       <h1>Bienvenue sur Brocante App</h1>
       <p>Découvrez nos trésors de brocante</p>
+      CAtegories | Recherche Géolocalisée | CAtalogues | Recherche Produit
     </header>
 
     <!-- Section des derniers produits -->
