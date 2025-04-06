@@ -5,7 +5,7 @@
       <button @click="editProduit()" class="btn btn-primary">Editer le produit</button>
     </div>
     <div class="row hero">
-      <div class="card col" style="width: 18rem">
+      <div class="card col-6" style="width: 18rem">
         <!-- <img :src="src" :alt="produit.name" /> -->
         <div class="card-body">
           <h3>{{ produit.name }}</h3>
