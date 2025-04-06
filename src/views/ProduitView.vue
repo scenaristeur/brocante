@@ -10,7 +10,6 @@
           type="text"
           class="form-control"
           id="produitInputName"
-          aria-describedby="emailHelp"
           v-model="produit.name"
         />
         <!-- <div id="emailHelp" class="form-text">
@@ -43,13 +42,23 @@
 
       <div class="mb-3">
         <label for="images" class="form-label">Images</label>
+        Uploading : {{ uploading }}
         <input type="file" class="form-control" id="images" v-on:change="uploadImage" />
       </div>
-      Uploading : {{ uploading }}
+
       <!-- <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
       </div> -->
+
+      <label for="produitInputTags" class="form-label">Tags/ Catégories</label>
+      <input
+        type="text"
+        class="form-control"
+        id="produitInputTags"
+        v-model="produit.tags"
+      />
+
       <button @click="enregistrer" class="btn btn-primary">Enregistrer</button>
     </div>
     <!-- Catalogue {{ catalogue }}

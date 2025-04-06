@@ -2,30 +2,45 @@
   <div>
     <div v-if="catalogue" class="catalogue">
       <!-- The current route is accessible as $route in the template -->
-      catalogue {{ $route.params.id }}
-      <h1
-        contenteditable="true"
-        ref="catalogueName"
-        @input="updateCatalogue()"
-        value="{{ catalogue.name }}"
-      >
-        {{ catalogue.name }}
-      </h1>
-      <header
-        contenteditable="true"
-        ref="catalogueDescription"
-        @input="updateCatalogue()"
-        value="{{ catalogue.description }}"
-      >
-        {{ catalogue.description }}
-      </header>
-
+      catalogue
+      <div class="hero">
+        <h1
+          contenteditable="true"
+          ref="catalogueName"
+          @input="updateCatalogue()"
+          value="{{ catalogue.name }}"
+        >
+          {{ catalogue.name }}
+        </h1>
+        <header
+          contenteditable="true"
+          ref="catalogueDescription"
+          @input="updateCatalogue()"
+          value="{{ catalogue.description }}"
+        >
+          {{ catalogue.description }}
+        </header>
+        Adresse où les objets de ce catalogue sont trouvables
+        <div
+          contenteditable="true"
+          ref="catalogueAdresse"
+          @input="updateCatalogue()"
+          value="{{ catalogue.adresse }}"
+        >
+          {{ catalogue.adresse }}
+        </div>
+        <!-- Geolocalisation de ce catalogue
+        <input id="pac-input" type="text" placeholder="Rechercher une adresse" />
+        <div id="map" style="width: 100%; height: 400px"></div> -->
+      </div>
+      <hr />
+      Admin
       <div v-if="user && catalogue.owner == user.id">
         Owner
         <button @click="editProduit(null)">Ajouter un produit</button>
         <button @click="deleteCatalogue(null)">Supprimer ce catalogue</button>
       </div>
-
+      <hr />
       <!-- <div v-for="produit in produits" :key="produit.id">Propduit {{ produit.name }}</div> -->
 
       <div class="list-group">
@@ -65,6 +80,7 @@ export default {
         id: this.catalogue.id,
         name: this.$refs.catalogueName.textContent,
         description: this.$refs.catalogueDescription.textContent,
+        adresse: this.$refs.catalogueAdresse.textContent,
       });
     },
     // getCatalogue() {
