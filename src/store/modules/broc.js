@@ -6,6 +6,7 @@ const state = () => ({
   catalogue: null,
   produit: {},
   produits: [],
+  profile: {},
 })
 
 const mutations = {
@@ -43,6 +44,15 @@ const actions = {
       password: signup.password,
     })
     console.log(data, error)
+    if (error == null) {
+      // context.commit('setUser', data.user)
+      alert(
+        'Inscription réussie, consultez votre boîte mail pour activer votre compte, et cliquez sur le lien de confirmation. (Exepéditeur: "Supabase Auth") ',
+      )
+    } else {
+      console.log(data, error)
+      alert(error.message)
+    }
   },
   async login(context, signin) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -55,6 +65,7 @@ const actions = {
       context.commit('setUser', data.user)
     } else {
       console.log(data, error)
+      alert(error.message)
     }
   },
   async logout(context) {
@@ -64,6 +75,7 @@ const actions = {
       context.commit('setUser', null)
     } else {
       console.log(error)
+      alert(error.message)
     }
   },
   async getMyCatalogues(context) {
@@ -94,6 +106,9 @@ const actions = {
     console.log(data, error)
     if (error == null) {
       context.commit('setProduits', {})
+      alert('Produit enregistré')
+    } else {
+      alert(error.message)
     }
   },
   async getProduits(context, id) {
@@ -134,6 +149,10 @@ const actions = {
       .eq('id', catalogue.id)
     console.log(data, error)
     context.dispatch('getMyCatalogues')
+  },
+  async saveProfile(context, profile) {
+    const { data, error } = await supabase.from('profiles').upsert(profile)
+    console.log(data, error)
   },
   // async checkSession(context) {
   //   localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString())

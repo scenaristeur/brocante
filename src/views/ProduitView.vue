@@ -46,6 +46,18 @@
         <input type="file" class="form-control" id="images" v-on:change="uploadImage" />
       </div>
 
+      <div>
+        <div v-for="image in produit.images" :key="image" style="display: inline">
+          <ImageComponent :image="image" size="10" />
+          <button
+            class="btn btn-danger"
+            @click="deleteImage(image)"
+            style="display: inline; margin: 5px; vertical-align: top"
+          >
+            X
+          </button>
+        </div>
+      </div>
       <!-- <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -68,9 +80,11 @@
 </template>
 
 <script>
+import ImageComponent from "../components/ImageComponent.vue";
 import { supabase } from "@/lib/supabaseClient";
 export default {
   name: "ProduitView",
+  components: { ImageComponent },
   data() {
     return {
       uploading: false,
@@ -109,6 +123,17 @@ export default {
       } finally {
         this.uploading = false;
       }
+    },
+    async deleteImage(image) {
+      console.log(image);
+      let answer = confirm("Voulez-vous vraiment supprimer cette image ?");
+      if (!answer) return;
+      const { data, error } = await supabase.storage
+        .from("produit-images")
+        .remove(["/public/" + image]);
+      if (error) throw error;
+      console.log(data);
+      this.produit.images.splice(this.produit.images.indexOf(image), 1);
     },
   },
   watch: {

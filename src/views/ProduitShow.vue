@@ -18,7 +18,10 @@
         <CarousselImages :images="produit.images" />
         <hr />
         Updated:
-        {{ produit.updated_at && produit.updated_at.toLocaleString() }} catalogue:
+        {{
+          produit.updated_at && new Date(produit.updated_at).toLocaleDateString()
+        }}
+        catalogue:
         {{ produit.catalogue }}
       </div>
     </div>

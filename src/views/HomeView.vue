@@ -9,7 +9,8 @@
 
     <!-- Section des derniers produits -->
     <section class="latest-products">
-      <h2>Derniers Produits <input type="text" placeholder="Rechercher" /></h2>
+      <h2>Derniers Produits</h2>
+      <!-- <input type="text" placeholder="Rechercher" /> -->
 
       <div class="product-grid">
         <ProduitCard v-for="produit in produits" :key="produit.id" :produit="produit" />
