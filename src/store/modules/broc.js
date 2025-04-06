@@ -101,7 +101,7 @@ const actions = {
       .from('produits')
       .select()
       .eq('catalogue', id)
-      .order('updated', { ascending: false })
+      .order('updated_at', { ascending: true })
     if (error) {
       console.log(error)
     } else {

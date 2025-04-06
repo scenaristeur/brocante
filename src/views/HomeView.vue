@@ -82,7 +82,8 @@ export default {
       const { data, error } = await supabase
         .from("produits")
         .select("*")
-        .order("updated", { ascending: false })
+        .order("created_at", { ascending: false }, "updated_at", { ascending: false })
+
         .limit(10);
       if (error) {
         console.log(error);

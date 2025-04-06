@@ -5,7 +5,7 @@
       <button @click="editProduit()" class="btn btn-primary">Editer le produit</button>
     </div>
     <div class="row hero">
-      <div class="card col-6">
+      <div class="card col" style="width: 18rem">
         <!-- <img :src="src" :alt="produit.name" /> -->
         <div class="card-body">
           <h3>{{ produit.name }}</h3>
@@ -14,16 +14,17 @@
           <!-- <p class="quantite">x{{ produit.quantite }}</p> -->
         </div>
       </div>
-      <div class="col-6">
+      <div class="col">
         <CarousselImages :images="produit.images" />
         <hr />
-        Updated: {{ produit.updated && produit.updated.toLocaleString() }} catalogue:
+        Updated:
+        {{ produit.updated_at && produit.updated_at.toLocaleString() }} catalogue:
         {{ produit.catalogue }}
       </div>
     </div>
 
     <div class="row">
-      <div class="card" style="width: 18rem">
+      <div class="card">
         <img class="card-img-top" :src="user && user.avatar" alt="Card image cap" />
         <div class="card-body">
           <h5 class="card-title">Vendeur</h5>
