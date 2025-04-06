@@ -2,7 +2,7 @@
   <div>
     <!-- Produit {{ produit }}
     <hr /> -->
-
+    <button @click="supprimerProduit" class="btn btn-danger">Supprimer le produit</button>
     <div>
       <div class="mb-3">
         <label for="produitInputName" class="form-label">Nom de produit</label>
@@ -134,6 +134,11 @@ export default {
       if (error) throw error;
       console.log(data);
       this.produit.images.splice(this.produit.images.indexOf(image), 1);
+    },
+    async supprimerProduit() {
+      let answer = confirm("Voulez-vous vraiment supprimer ce produit ?");
+      if (!answer) return;
+      this.$store.dispatch("broc/supprimerProduit", this.produit);
     },
   },
   watch: {

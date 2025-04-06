@@ -25,18 +25,66 @@
 
     <div class="row">
       <div class="card">
-        <img class="card-img-top" :src="user && user.avatar" alt="Card image cap" />
+        Vendeur
+        <img
+          class="card-img-top"
+          v-if="catalogueOwnerProfile.avatar_url"
+          :src="catalogueOwnerProfile.avatar_url"
+          alt="Card image cap"
+        />
         <div class="card-body">
-          <h5 class="card-title">Vendeur</h5>
+          <h5 class="card-title">
+            {{ catalogueOwnerProfile.first_name }} {{ catalogueOwnerProfile.last_name }}
+          </h5>
+
           <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the
-            card's content.
+            <span
+              v-if="catalogueOwnerProfile.adresse || catalogueOwnerProfile.etablissement"
+            >
+              <a
+                :href="
+                  'http://maps.google.com/?q=' +
+                  catalogueOwnerProfile.etablissement +
+                  ' ' +
+                  catalogueOwnerProfile.adresse
+                "
+                target="_blank"
+                ><span v-if="catalogueOwnerProfile.etablissement"
+                  ><strong>{{ catalogueOwnerProfile.etablissement }}</strong
+                  ><br /></span
+                >{{ catalogueOwnerProfile.adresse }}</a
+              >
+            </span>
           </p>
-          <a href="#" class="btn btn-primary">Contacter par mail</a>
-          <a href="#" class="btn btn-primary">Contacter par message interne</a>
-          <a href="#" class="btn btn-primary">Contacter par téléphone</a>
+          <p class="card-text" v-if="catalogueOwnerProfile.website">
+            <a
+              v-if="catalogueOwnerProfile.website"
+              :href="catalogueOwnerProfile.website"
+              target="_blank"
+              >Voir le site</a
+            >
+          </p>
+
+          <p class="card-text" v-if="catalogueOwnerProfile.description">
+            {{ catalogueOwnerProfile.description }}
+          </p>
+
+          <a class="btn btn-primary" :href="'mailto: ' + catalogueOwnerProfile.email"
+            >Contacter par mail</a
+          >
+
+          <a
+            v-if="catalogueOwnerProfile.phone_number"
+            :href="'tel:' + catalogueOwnerProfile.phone_number"
+            class="btn btn-primary"
+            >Contacter par téléphone</a
+          >
+          <button disabled href="#" class="btn btn-primary">
+            Contacter par message interne
+          </button>
         </div>
       </div>
+      <!-- catalogue owner {{ catalogueOwnerProfile }} -->
     </div>
 
     <div class="row">
@@ -68,9 +116,15 @@ export default {
   watch: {
     produit() {
       console.log(this.produit);
+      // if (this.produit.id == null) {
+      //   this.$router.push({
+      //     name: "home",
+      //   });
+      // } else {
       this.$store.dispatch("broc/getCatalogue", this.produit.catalogue);
       window.scrollTo(0, 0);
     },
+    //},
   },
   computed: {
     produit() {
@@ -84,6 +138,9 @@ export default {
     },
     produits() {
       return this.$store.state.broc.produits;
+    },
+    catalogueOwnerProfile() {
+      return this.$store.state.broc.catalogueOwnerProfile;
     },
   },
 };

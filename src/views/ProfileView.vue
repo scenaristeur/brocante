@@ -2,7 +2,7 @@
   <div>
     <!-- general -->
     <div class="row">
-      <h3>Profil Public</h3>
+      <h3>Profil Public de contact</h3>
       <p>
         Attention dans la version 1, ces informations sont publiques!
         <br />Ne mettez que celles que vous souhaitez diffuser, pour être contacté par les
@@ -32,6 +32,18 @@
           v-model="profile.first_name"
         />
       </div>
+
+      <div class="col-auto">
+        <label for="inputDescription" class="col-form-label">Description</label>
+      </div>
+      <div class="col-auto">
+        <textarea
+          type="text"
+          id="inputDescription"
+          class="form-control"
+          v-model="profile.description"
+        />
+      </div>
     </div>
 
     <div class="row">
@@ -55,6 +67,19 @@
           id="inputAdresse"
           class="form-control"
           v-model="profile.adresse"
+        />
+      </div>
+
+      <div class="col-auto">
+        <label for="inputWebsite" class="col-form-label">website</label>
+      </div>
+      <div class="col-auto">
+        <input
+          type="text"
+          id="inputWebsite"
+          placeholder="https://..."
+          class="form-control"
+          v-model="profile.website"
         />
       </div>
     </div>
@@ -128,9 +153,9 @@
           <span> (En cours de développement.)</span>
         </div>
       </div>
-      {{ user.user_metadata }} meta
+      <!-- {{ user.user_metadata }} meta
       <hr />
-      {{ profile }}
+      {{ profile }} -->
     </div>
 
     <button @click="saveProfile" class="btn btn-success">Enregistrer</button>
@@ -144,6 +169,14 @@ export default {
     saveProfile() {
       this.profile.id = this.user.id;
       this.profile.allow_mail = true;
+      this.profile.email = this.user.email;
+      if (this.profile.allow_phone != true) {
+        this.profile.phone_number = null;
+      }
+      if (this.profile.allow_visite != true) {
+        this.profile.adresse = null;
+        this.profile.etablissement = null;
+      }
       console.log("save profile", this.profile);
       this.$store.dispatch("broc/saveProfile", this.profile);
     },

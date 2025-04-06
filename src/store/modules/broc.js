@@ -7,6 +7,7 @@ const state = () => ({
   produit: {},
   produits: [],
   profile: {},
+  catalogueOwnerProfile: {},
 })
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   setProfile(state, p) {
     state.profile = p
+  },
+  setCatalogueOwnerProfile(state, p) {
+    state.catalogueOwnerProfile = p
   },
 
   // updateDoc(state, newDoc) {
@@ -102,6 +106,7 @@ const actions = {
       console.log(data)
       context.commit('setCatalogue', data[0])
       context.dispatch('getProduits', data[0].id)
+      context.dispatch('getCatalogueOwnerProfile', data[0].owner)
     }
   },
   async enregistrerProduit(context, produit) {
@@ -144,6 +149,10 @@ const actions = {
   async deleteCatalogue(context, id) {
     const { data, error } = await supabase.from('catalogues').delete().eq('id', id)
     console.log(data, error)
+    if (error) {
+      console.log(error)
+      alert(error.message)
+    }
     context.dispatch('getMyCatalogues')
   },
   async updateCatalogue(context, catalogue) {
@@ -159,6 +168,7 @@ const actions = {
     console.log(data, error)
     if (error) {
       console.log(error)
+      alert(error.message)
     }
   },
   async getMyProfile(context) {
@@ -170,6 +180,29 @@ const actions = {
       if (data.length > 0) {
         context.commit('setProfile', data[0])
       }
+    }
+  },
+  async getCatalogueOwnerProfile(context, id) {
+    const { data, error } = await supabase.from('profiles').select().eq('id', id)
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(data)
+      if (data.length > 0) {
+        context.commit('setCatalogueOwnerProfile', data[0])
+      }
+    }
+  },
+  async supprimerProduit(context, produit) {
+    const { data, error } = await supabase.from('produits').delete().eq('id', produit.id)
+    console.log(data, error)
+    context.dispatch('supprimerImages', produit.images)
+    context.dispatch('getProduits', context.state.catalogue.id)
+  },
+  async supprimerImages(images) {
+    for (let i = 0; i < images.length; i++) {
+      const { data, error } = await supabase.storage.from('produit-images').remove([images[i]])
+      console.log(data, error)
     }
   },
   // async checkSession(context) {
