@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="user && catalogue.owner == user.id">
+    <div v-if="catalogue && user && catalogue.owner == user.id">
       Owner
       <button @click="editProduit()" class="btn btn-primary">Editer le produit</button>
     </div>
@@ -22,51 +22,40 @@
       </div>
     </div>
 
-    <div class="card" style="width: 18rem">
-      <img class="card-img-top" src="..." alt="Card image cap" />
-      <div class="card-body">
-        <h5 class="card-title">Vendeur</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the
-          card's content.
-        </p>
-        <a href="#" class="btn btn-primary">Contacter par mail</a>
-        <a href="#" class="btn btn-primary">Contacter par message interne</a>
-        <a href="#" class="btn btn-primary">Contacter par téléphone</a>
+    <div class="row">
+      <div class="card" style="width: 18rem">
+        <img class="card-img-top" :src="user && user.avatar" alt="Card image cap" />
+        <div class="card-body">
+          <h5 class="card-title">Vendeur</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the bulk of the
+            card's content.
+          </p>
+          <a href="#" class="btn btn-primary">Contacter par mail</a>
+          <a href="#" class="btn btn-primary">Contacter par message interne</a>
+          <a href="#" class="btn btn-primary">Contacter par téléphone</a>
+        </div>
       </div>
     </div>
 
-    <!-- <div>ProduitShow</div>
-    {{ produit }}
-    <hr />
-    cat :{{ catalogue }}
-    <hr />
-    user {{ user }}
- -->
-
-    <hr />
-    + les autres catalogues de cet brocanteur + rechercher par géolocalisation
-    <!-- <hr />
-    {{ produits }} -->
-
-    <section class="latest-products" v-if="catalogue">
-      <h2>Dans le même catalogue : {{ catalogue.name }}</h2>
-      <div class="product-grid">
-        <ProduitCard v-for="produit in produits" :key="produit.id" :produit="produit" />
-      </div>
-    </section>
+    <div class="row">
+      <section class="latest-products" v-if="catalogue">
+        <h2>Dans le même catalogue : {{ catalogue.name }}</h2>
+        <div class="product-grid">
+          <ProduitCard v-for="produit in produits" :key="produit.id" :produit="produit" />
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
 import CarousselImages from "@/components/CarousselImages.vue";
-import ProduitCard from "../components/ProduitCard.vue";
+
+import ProduitCard from "@/components/ProduitCard.vue";
 export default {
   name: "ProduitShow",
   components: { ProduitCard, CarousselImages },
-  data() {
-    return {};
-  },
   methods: {
     editProduit() {
       this.$store.dispatch("broc/getProduit", this.produit.id);
@@ -89,11 +78,11 @@ export default {
     catalogue() {
       return this.$store.state.broc.catalogue;
     },
-    produits() {
-      return this.$store.state.broc.produits;
-    },
     user() {
       return this.$store.state.broc.user;
+    },
+    produits() {
+      return this.$store.state.broc.produits;
     },
   },
 };
@@ -126,18 +115,12 @@ export default {
   font-weight: bold;
   color: #e91e63;
 }
-
-.home {
-  padding: 2rem;
-}
-
 .hero {
   text-align: center;
   padding: 3rem 1rem;
   background: #f5f5f5;
   margin-bottom: 2rem;
 }
-
 .latest-products {
   margin-top: 2rem;
 }
