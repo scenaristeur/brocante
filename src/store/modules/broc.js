@@ -171,6 +171,8 @@ const actions = {
     if (error) {
       console.log(error)
       alert(error.message)
+    } else {
+      alert('Profil enregistré')
     }
   },
   async getMyProfile(context) {

@@ -1,5 +1,11 @@
 <template>
   <div class="card" @click="showProduit(produit.id)">
+    <div
+      class="badge text-bg-light"
+      style="z-index: 2; width: 2em; position: absolute; top: 0; right: 0"
+    >
+      {{ produit.images.length }}
+    </div>
     <img :src="src" :alt="produit.name" />
     <div class="card-body">
       <h3>{{ produit.name }}</h3>
