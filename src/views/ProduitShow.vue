@@ -16,10 +16,13 @@
       <div class="col">
         <CarousselImages :images="produit.images" />
         <hr />
-        Updated:
-        {{ produit.updated_at && new Date(produit.updated_at).toLocaleDateString() }}
-        catalogue:
-        {{ produit.catalogue }}
+        maj:
+        {{
+          (produit.updated_at && new Date(produit.updated_at).toLocaleDateString()) ||
+          (produit.created_at && new Date(produit.created_at).toLocaleDateString())
+        }}
+        <!-- catalogue:
+        {{ produit.catalogue }} -->
       </div>
     </div>
 
