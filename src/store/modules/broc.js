@@ -101,7 +101,7 @@ const actions = {
       .from('produits')
       .select()
       .eq('catalogue', id)
-      .order('updated_at', { ascending: true })
+      .order('updated_at', { ascending: true }, 'created_at', { ascending: true })
     if (error) {
       console.log(error)
     } else {
@@ -121,6 +121,19 @@ const actions = {
         context.commit('setProduit', data[0])
       }
     }
+  },
+  async deleteCatalogue(context, id) {
+    const { data, error } = await supabase.from('catalogues').delete().eq('id', id)
+    console.log(data, error)
+    context.dispatch('getMyCatalogues')
+  },
+  async updateCatalogue(context, catalogue) {
+    const { data, error } = await supabase
+      .from('catalogues')
+      .update(catalogue)
+      .eq('id', catalogue.id)
+    console.log(data, error)
+    context.dispatch('getMyCatalogues')
   },
   // async checkSession(context) {
   //   localStorage.setItem(LOCAL_STORAGE_KEY__SOLID_SESSION_RESTORE_URL, window.location.toString())

@@ -3,12 +3,27 @@
     <div v-if="catalogue" class="catalogue">
       <!-- The current route is accessible as $route in the template -->
       catalogue {{ $route.params.id }}
-      <h1>{{ catalogue.name }}</h1>
-      <header>{{ catalogue.description }}</header>
+      <h1
+        contenteditable="true"
+        ref="catalogueName"
+        @input="updateCatalogue()"
+        value="{{ catalogue.name }}"
+      >
+        {{ catalogue.name }}
+      </h1>
+      <header
+        contenteditable="true"
+        ref="catalogueDescription"
+        @input="updateCatalogue()"
+        value="{{ catalogue.description }}"
+      >
+        {{ catalogue.description }}
+      </header>
 
       <div v-if="user && catalogue.owner == user.id">
         Owner
         <button @click="editProduit(null)">Ajouter un produit</button>
+        <button @click="deleteCatalogue(null)">Supprimer ce catalogue</button>
       </div>
 
       <!-- <div v-for="produit in produits" :key="produit.id">Propduit {{ produit.name }}</div> -->
@@ -45,6 +60,13 @@ export default {
     // this.$store.dispatch("broc/getProduits", this.catalogue.id);
   },
   methods: {
+    updateCatalogue() {
+      this.$store.dispatch("broc/updateCatalogue", {
+        id: this.catalogue.id,
+        name: this.$refs.catalogueName.textContent,
+        description: this.$refs.catalogueDescription.textContent,
+      });
+    },
     // getCatalogue() {
     //   this.$store.dispatch("broc/getCatalogue", this.$route.params.id);
     // },
@@ -52,6 +74,14 @@ export default {
       this.$store.dispatch("broc/getProduit", id);
       this.$router.push({
         name: "produit",
+      });
+    },
+    deleteCatalogue() {
+      let answer = confirm("Voulez-vous vraiment supprimer ce catalogue ?");
+      if (!answer) return;
+      this.$store.dispatch("broc/deleteCatalogue", this.catalogue.id);
+      this.$router.push({
+        name: "catalogue-gestion",
       });
     },
   },

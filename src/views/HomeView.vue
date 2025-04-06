@@ -9,10 +9,15 @@
 
     <!-- Section des derniers produits -->
     <section class="latest-products">
-      <h2>Derniers Produits</h2>
+      <h2>Derniers Produits <input type="text" placeholder="Rechercher" /></h2>
+
       <div class="product-grid">
         <ProduitCard v-for="produit in produits" :key="produit.id" :produit="produit" />
       </div>
+      <hr />
+      <button @click="getProduits" class="btn btn-primary">
+        Charger plus de produits
+      </button>
     </section>
   </div>
 </template>
@@ -27,51 +32,9 @@ export default {
 
   data() {
     return {
+      range_start: 0,
       // Exemple de données statiques
-      produits: [
-        // {
-        //   id: 1,
-        //   titre: "Vieux Fauteuil",
-        //   description: "Confortable et plein de charme.",
-        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Fauteuil",
-        //   prix: "100€",
-        // },
-        // {
-        //   id: 2,
-        //   titre: "Lampe Rétro",
-        //   description: "Éclairage vintage pour une ambiance unique.",
-        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Lampe",
-        //   prix: "50€",
-        // },
-        // {
-        //   id: 3,
-        //   titre: "Table en Bois",
-        //   description: "Authentique table de brocante en bois massif.",
-        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Table",
-        //   prix: "150€",
-        // },
-        // {
-        //   id: 4,
-        //   titre: "Vieux Fauteuil",
-        //   description: "Confortable et plein de charme.",
-        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Fauteuil",
-        //   prix: "100€",
-        // },
-        // {
-        //   id: 5,
-        //   titre: "Lampe Rétro",
-        //   description: "Éclairage vintage pour une ambiance unique.",
-        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Lampe",
-        //   prix: "50€",
-        // },
-        // {
-        //   id: 6,
-        //   titre: "Table en Bois",
-        //   description: "Authentique table de brocante en bois massif.",
-        //   image: "https://dummyimage.com/300x200/000000/0fffff.png&text=Table",
-        //   prix: "150€",
-        // },
-      ],
+      produits: [],
     };
   },
   mounted() {
@@ -83,13 +46,14 @@ export default {
         .from("produits")
         .select("*")
         .order("created_at", { ascending: false }, "updated_at", { ascending: false })
-
-        .limit(10);
+        .range(this.range_start, this.range_start + 10);
       if (error) {
         console.log(error);
       } else {
         console.log(data);
-        this.produits = data;
+        // this.produits.concat(data);
+        this.produits = [...this.produits, ...data];
+        this.range_start += 11;
       }
     },
   },
