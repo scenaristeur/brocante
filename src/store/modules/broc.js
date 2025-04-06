@@ -45,7 +45,7 @@ const mutations = {
 
 const actions = {
   async checkUser(context) {
-    const { data, error } = await supabase.auth.getUser()
+    const { data } = await supabase.auth.getUser()
     context.commit('setUser', data.user)
   },
   async signin(context, signup) {
