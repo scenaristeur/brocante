@@ -11,7 +11,7 @@
         :src="src"
         alt="Avatar"
         class="avatar image"
-        :style="{ height: size + 'em', width: size + 'em' }"
+        :style="{ 'max-height': size + 'em', 'max-width': size + 'em' }"
       />
     </button>
   </div>
