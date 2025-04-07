@@ -5,7 +5,7 @@
       class="btn btn-danger"
       style="position: absolute; right: 0px"
     >
-      Supprimer ce catalogue
+      <i class="bi bi-trash"></i> Supprimer ce catalogue
     </button>
     <div v-if="catalogue">
       <!-- The current route is accessible as $route in the template -->
@@ -57,7 +57,7 @@
       <div class="list-group">
         <button
           type="button"
-          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+          class="list-group-item list-group-item-info list-group-item-action d-flex justify-content-between align-items-center"
           v-for="produit in produits"
           :key="produit.id"
           @click="editProduit(produit.id)"

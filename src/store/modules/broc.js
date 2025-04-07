@@ -113,11 +113,11 @@ const actions = {
   },
   async enregistrerProduit(context, produit) {
     console.log(produit)
-    const { data, error } = await supabase.from('produits').upsert(produit)
+    const { data, error } = await supabase.from('produits').upsert(produit).select()
     console.log(data, error)
     if (error == null) {
-      context.commit('setProduits', {})
-      alert('Produit enregistré')
+      context.commit('setProduit', data[0])
+      return data[0]
     } else {
       alert(error.message)
     }
@@ -137,7 +137,7 @@ const actions = {
   },
   async getProduit(context, id) {
     if (id == null) {
-      context.commit('setProduit', {})
+      context.commit('setProduit', { quantite: 1, prix: 1, catalogue: context.state.catalogue.id })
     } else {
       const { data, error } = await supabase.from('produits').select().eq('id', id)
       if (error) {

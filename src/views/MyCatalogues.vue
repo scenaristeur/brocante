@@ -5,7 +5,7 @@
     <div class="list-group">
       <button
         type="button"
-        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+        class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between align-items-center"
         v-for="catalogue in myCatalogues"
         :key="catalogue.id"
         @click="openCatalogue(catalogue.id)"

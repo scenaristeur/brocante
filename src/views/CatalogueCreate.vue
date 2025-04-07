@@ -76,14 +76,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.row > .form-floating > label {
-  margin-left: 0.75em;
-}
-.hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: #f5f5f5;
-  margin-bottom: 2rem;
-}
-</style>
+<style scoped></style>

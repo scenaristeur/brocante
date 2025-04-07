@@ -1,7 +1,13 @@
 <template>
-  <div class="container">
+  <div class="container" style="position: relative">
     <div v-if="catalogue && user && catalogue.owner == user.id">
-      <button @click="editProduit()" class="btn btn-primary">Editer le produit</button>
+      <button
+        @click="editProduit()"
+        class="btn btn-primary"
+        style="position: absolute; top: 0px; right: 0px"
+      >
+        <i class="bi bi-pen"></i> Editer le produit
+      </button>
     </div>
     <div class="row hero">
       <div class="card col-6" style="width: 18rem">
