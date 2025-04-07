@@ -105,6 +105,7 @@
 <script>
 import ImageComponent from "../components/ImageComponent.vue";
 import { supabase } from "@/lib/supabaseClient";
+import imageCompression from "browser-image-compression";
 export default {
   name: "ProduitEdit",
   components: { ImageComponent },
@@ -138,9 +139,22 @@ export default {
         const file = files[0];
         const fileExt = file.name.split(".").pop();
         const filePath = `${Math.random()}.${fileExt}`;
+        console.log("originalFile instanceof Blob", file instanceof Blob); // true
+        console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 600,
+          useWebWorker: true,
+        };
+
+        const compressedFile = await imageCompression(file, options);
+        console.log("compressedFile instanceof Blob", compressedFile instanceof Blob); // true
+        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
         const { error: uploadError } = await supabase.storage
           .from("produit-images/public")
-          .upload(filePath, file);
+          .upload(filePath, compressedFile);
         if (uploadError) throw uploadError;
         console.log("update:path", filePath);
         console.log("upload");
