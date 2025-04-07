@@ -186,12 +186,7 @@ export default {
   font-weight: bold;
   color: #e91e63;
 }
-.hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: #f5f5f5;
-  margin-bottom: 2rem;
-}
+
 .latest-products {
   margin-top: 2rem;
 }

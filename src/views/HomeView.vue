@@ -66,13 +66,6 @@ export default {
   padding: 2rem;
 }
 
-.hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: #f5f5f5;
-  margin-bottom: 2rem;
-}
-
 .latest-products {
   margin-top: 2rem;
 }

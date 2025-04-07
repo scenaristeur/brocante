@@ -1,18 +1,20 @@
 <template>
-  <div v-if="user">
-    Mes catalogues :
-    <!-- <hr />
-    {{ myCatalogues }} -->
+  <div v-if="user" class="hero">
+    <h3>Mes catalogues</h3>
 
     <div class="list-group">
       <button
         type="button"
-        class="list-group-item list-group-item-action"
+        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
         v-for="catalogue in myCatalogues"
         :key="catalogue.id"
         @click="openCatalogue(catalogue.id)"
       >
-        <b>{{ catalogue.name }}</b> : {{ catalogue.description }}
+        <div>
+          <b>{{ catalogue.name }}</b
+          >: {{ catalogue.description }}
+        </div>
+        <span class="badge bg-primary rounded-pill">x articles</span>
       </button>
     </div>
   </div>

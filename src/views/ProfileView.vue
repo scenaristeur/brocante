@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="hero">
     <!-- general -->
 
     <h4>Informations publiques de contact</h4>
@@ -55,7 +55,7 @@
         <label for="inputPresenttion">Présentation</label>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4" style="text-align: left">
         <div class="form-check">
           <input
             class="form-check-input"
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-4" style="text-align: left">
         <div class="form-check">
           <input
             class="form-check-input"
@@ -112,7 +112,7 @@
           <span> (bientôt dispo)</span>
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12" style="text-align: left">
         <div class="form-check mb-3">
           <input
             class="form-check-input"
@@ -155,7 +155,7 @@
     <button
       @click="saveProfile"
       class="btn btn-success"
-      :disabled="profile.last_name.length < 3"
+      :disabled="!profile.last_name || profile.last_name.length < 3"
     >
       Enregistrer
     </button>
@@ -191,10 +191,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* https://stackoverflow.com/questions/69265379/bootstrap-form-floating-label-has-weird-margins-when-inside-row */
-.row > .form-floating > label {
-  margin-left: 0.75em;
-}
-</style>

@@ -1,32 +1,36 @@
 <template>
   <div if v-if="user">
-    <!-- <input type="text" v-model="title" placeholder="Nom du catalogue" />
-    <textarea v-model="description" placeholder="Description du catalogue"></textarea>
-    <button @click="createCatalogue">Create Catalogue</button> -->
+    <div class="row hero">
+      <div class="col-md-12">
+        <h3>Création de catalogue</h3>
+      </div>
 
-    <div>
-      <div class="mb-3">
-        <label for="produitInputName" class="form-label">Nom de catalogue</label>
+      <div class="form-floating mb-3 col-md-4">
         <input
           type="text"
           class="form-control"
           id="produitInputName"
-          aria-describedby="emailHelp"
+          placeholder="Nom"
           v-model="title"
         />
-        <!-- <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
-        </div> -->
+        <label for="produitInputName" class="col-form-label"
+          >Nom du nouveau catalogue</label
+        >
       </div>
-      <div class="mb-3">
-        <label for="produitTextareaDescription" class="form-label">Description</label>
+
+      <div class="form-floating mb-3 col-md-7">
         <textarea
           class="form-control"
+          placeholder="Description"
           id="produitTextareaDescription"
           v-model="description"
-        />
+        ></textarea>
+        <label for="produitTextareaDescription">Description</label>
       </div>
-      <button @click="createCatalogue" class="btn btn-primary">Créer le catalogue</button>
+
+      <div class="form-floating mb-3 col-md-1">
+        <button @click="createCatalogue" class="btn btn-primary btn-lg">Créer</button>
+      </div>
     </div>
   </div>
 </template>
@@ -72,4 +76,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.row > .form-floating > label {
+  margin-left: 0.75em;
+}
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #f5f5f5;
+  margin-bottom: 2rem;
+}
+</style>

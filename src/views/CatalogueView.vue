@@ -1,14 +1,22 @@
 <template>
   <div>
-    <div v-if="catalogue" class="catalogue">
+    <button
+      @click="deleteCatalogue(null)"
+      class="btn btn-danger"
+      style="position: absolute; right: 0px"
+    >
+      Supprimer ce catalogue
+    </button>
+    <div v-if="catalogue">
       <!-- The current route is accessible as $route in the template -->
-      catalogue
+      <h3>Catalogue</h3>
       <div class="hero">
         <h1
           contenteditable="true"
           ref="catalogueName"
           @input="updateCatalogue()"
           value="{{ catalogue.name }}"
+          class="editable"
         >
           {{ catalogue.name }}
         </h1>
@@ -17,28 +25,31 @@
           ref="catalogueDescription"
           @input="updateCatalogue()"
           value="{{ catalogue.description }}"
+          class="editable"
         >
           {{ catalogue.description }}
         </header>
-        Adresse où les objets de ce catalogue sont trouvables
+        Adresse où les objets de ce catalogue sont visibles
         <div
           contenteditable="true"
           ref="catalogueAdresse"
           @input="updateCatalogue()"
           value="{{ catalogue.adresse }}"
+          class="editable"
         >
           {{ catalogue.adresse }}
         </div>
+
         <!-- Geolocalisation de ce catalogue
         <input id="pac-input" type="text" placeholder="Rechercher une adresse" />
         <div id="map" style="width: 100%; height: 400px"></div> -->
       </div>
       <hr />
-      Admin
+
       <div v-if="user && catalogue.owner == user.id">
-        Owner
-        <button @click="editProduit(null)">Ajouter un produit</button>
-        <button @click="deleteCatalogue(null)">Supprimer ce catalogue</button>
+        <button @click="editProduit(null)" class="btn btn-success">
+          Ajouter un produit
+        </button>
       </div>
       <hr />
       <!-- <div v-for="produit in produits" :key="produit.id">Propduit {{ produit.name }}</div> -->
@@ -46,12 +57,24 @@
       <div class="list-group">
         <button
           type="button"
-          class="list-group-item list-group-item-action"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
           v-for="produit in produits"
           :key="produit.id"
           @click="editProduit(produit.id)"
         >
-          <b>{{ produit.name }}</b> : {{ produit.description }}
+          <div>
+            <ImageComponent
+              v-if="produit.images && produit.images.length > 0"
+              :image="produit.images[0]"
+              size="2"
+            />
+            <div v-else class="no-image"></div>
+            <b>{{ produit.name }}</b> : {{ produit.description }}
+          </div>
+          <span class="badge bg-primary rounded-pill"
+            >{{ (produit.images && produit.images.length) || 0 }}
+            <i class="bi bi-image"></i
+          ></span>
         </button>
       </div>
     </div>
@@ -59,8 +82,11 @@
 </template>
 
 <script>
+import ImageComponent from "@/components/ImageComponent.vue";
+
 export default {
   name: "CatalogueView",
+  components: { ImageComponent },
   // created() {
   //   this.$watch(
   //     () => this.$route.params.id,
@@ -119,4 +145,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.editable {
+  cursor: pointer;
+  background-color: rgb(116, 219, 219);
+}
+.no-image {
+  display: inline-block;
+  width: 58px;
+}
+</style>

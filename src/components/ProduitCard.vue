@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="showProduit(produit.id)">
     <div
-      v-if="produit.images.length > 1"
+      v-if="produit.images && produit.images.length > 1"
       class="badge text-bg-light"
       style="z-index: 2; width: auto; position: absolute; top: 0; right: 0"
     >
