@@ -1,105 +1,61 @@
 <template>
   <div>
     <!-- general -->
-    <div class="row">
-      <h3>Profil Public de contact</h3>
-      <p>
-        Attention dans la version 1, ces informations sont publiques!
-        <br />Ne mettez que celles que vous souhaitez diffuser, pour être contacté par les
-        visiteurs. Nous développons la fonctionnalité de messagerie interne, pour éviter
-        ce désagrément.
-      </p>
-      <div class="col-auto">
-        <label for="inputNom" class="col-form-label">Nom</label>
-      </div>
-      <div class="col-auto">
-        <input
-          type="text"
-          id="inputNom"
-          class="form-control"
-          v-model="profile.last_name"
-        />
-      </div>
 
-      <div class="col-auto">
-        <label for="inputPrénom" class="col-form-label">Prénom</label>
-      </div>
-      <div class="col-auto">
+    <h4>Informations publiques de contact</h4>
+    <div class="alert alert-danger" role="alert">
+      Attention dans la version 1 (en attendant le développement de la messagerie
+      interne), ces informations sont publiques!
+      <br />Ne remplissez que celles que vous souhaitez diffuser, pour être contacté par
+      les acheteurs.
+    </div>
+
+    <div class="row">
+      <div class="form-floating mb-3 col-md-4">
         <input
           type="text"
-          id="inputPrénom"
           class="form-control"
+          id="inputNom"
+          placeholder="Nom"
+          v-model="profile.last_name"
+          aria-describedby="nameHelpInline"
+        />
+        <label for="inputNom" class="col-form-label">Nom (minimum 3 charactères.)</label>
+      </div>
+      <div class="form-floating mb-3 col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="inputPrenom"
+          placeholder="Prénom"
           v-model="profile.first_name"
         />
+        <label for="inputPrenom" class="col-form-label">Prénom</label>
       </div>
 
-      <div class="col-auto">
-        <label for="inputDescription" class="col-form-label">Description</label>
-      </div>
-      <div class="col-auto">
-        <textarea
-          type="text"
-          id="inputDescription"
-          class="form-control"
-          v-model="profile.description"
-        />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-auto">
-        <label for="inputEtablissement" class="col-form-label">Etablissement</label>
-      </div>
-      <div class="col-auto">
+      <div class="form-floating mb-3 col-md-4">
         <input
           type="text"
-          id="inputEtablissement"
           class="form-control"
-          v-model="profile.etablissement"
-        />
-      </div>
-      <div class="col-auto">
-        <label for="inputAdresse" class="col-form-label">Adresse</label>
-      </div>
-      <div class="col-auto">
-        <textarea
-          type="text"
-          id="inputAdresse"
-          class="form-control"
-          v-model="profile.adresse"
-        />
-      </div>
-
-      <div class="col-auto">
-        <label for="inputWebsite" class="col-form-label">website</label>
-      </div>
-      <div class="col-auto">
-        <input
-          type="text"
           id="inputWebsite"
-          placeholder="https://..."
-          class="form-control"
+          placeholder="website"
           v-model="profile.website"
         />
+        <label for="inputWebsite" class="col-form-label">Website (optionel)</label>
       </div>
-    </div>
 
-    <div class="row">
-      <h3>Préférences</h3>
-      <div class="col-auto">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="contactMail"
-            v-model="profile.allow_mail"
-            checked
-            disabled
-          />
-          <label class="form-check-label" for="contactMail"> Contact par email </label> :
-          <span>{{ user.email }}</span>
-        </div>
+      <div class="form-floating mb-3 col-md-4">
+        <textarea
+          class="form-control"
+          placeholder="Présentation"
+          id="inputPresenttion"
+          style="height: 100px"
+          v-model="profile.description"
+        ></textarea>
+        <label for="inputPresenttion">Présentation</label>
+      </div>
+
+      <div class="col-md-4">
         <div class="form-check">
           <input
             class="form-check-input"
@@ -125,20 +81,23 @@
             </div>
           </span>
         </div>
+      </div>
 
+      <div class="col-md-4">
         <div class="form-check">
           <input
             class="form-check-input"
             type="checkbox"
             value=""
-            id="contactVisite"
-            v-model="profile.allow_visite"
+            id="contactMail"
+            v-model="profile.allow_mail"
+            checked
+            disabled
           />
-          <label class="form-check-label" for="contactVisite">
-            Autoriser les visiteurs à se rendre à l'adresse de votre établissement
-          </label>
+          <label class="form-check-label" for="contactMail"> Contact par email </label> :
+          <span>{{ user.email }}</span>
         </div>
-        <div class="form-check">
+        <div class="form-check mb-3">
           <input
             class="form-check-input"
             type="checkbox"
@@ -148,17 +107,58 @@
             v-model="profile.allow_interne"
           />
           <label class="form-check-label" for="contactInterne">
-            Contact par messagerie de l'appli
+            Contact par message interne
           </label>
-          <span> (En cours de développement.)</span>
+          <span> (bientôt dispo)</span>
         </div>
       </div>
-      <!-- {{ user.user_metadata }} meta
-      <hr />
-      {{ profile }} -->
+      <div class="col-md-12">
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="contactVisite"
+            v-model="profile.allow_visite"
+          />
+          <label class="form-check-label" for="contactVisite">
+            Autoriser les acheteurs à se rendre à votre adresse.
+          </label>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3 col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="inputEtablissement"
+          placeholder="Etablissement"
+          v-model="profile.etablissement"
+        />
+        <label for="inputEtablissement" class="col-form-label"
+          >Etablissement (optionel)</label
+        >
+      </div>
+
+      <div class="form-floating mb-3 col-md-4">
+        <textarea
+          class="form-control"
+          placeholder="Adresse"
+          id="inputAdresse"
+          style="height: 100px"
+          v-model="profile.adresse"
+        ></textarea>
+        <label for="inputAdresse">Adresse</label>
+      </div>
     </div>
 
-    <button @click="saveProfile" class="btn btn-success">Enregistrer</button>
+    <button
+      @click="saveProfile"
+      class="btn btn-success"
+      :disabled="profile.last_name.length < 3"
+    >
+      Enregistrer
+    </button>
   </div>
 </template>
 
@@ -192,4 +192,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* https://stackoverflow.com/questions/69265379/bootstrap-form-floating-label-has-weird-margins-when-inside-row */
+.row > .form-floating > label {
+  margin-left: 0.75em;
+}
+</style>

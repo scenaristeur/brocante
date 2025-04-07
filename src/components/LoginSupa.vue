@@ -1,37 +1,38 @@
 <template>
   <div>
     <div v-if="user == null">
-      Email : <input type="email" v-model="email" />
-
-      <!-- Password :
-      <input type="password" v-model="password" /> -->
-      <div class="row g-3 align-items-center">
-        <div class="col-auto">
-          <label for="inputPassword6" class="col-form-label">Password</label>
-        </div>
-        <div class="col-auto">
-          <input
-            type="password"
-            id="inputPassword6"
-            class="form-control"
-            aria-describedby="passwordHelpInline"
-            v-model="password"
-          />
-        </div>
-        <div class="col-auto">
-          <span id="passwordHelpInline" class="form-text"> minimum 8 charactères. </span>
-        </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+          v-model="email"
+        />
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+          aria-describedby="passwordHelpInline"
+          v-model="password"
+        />
+        <label for="floatingPassword">Password</label>
+        <span id="passwordHelpInline" class="form-text"> minimum 8 charactères. </span>
       </div>
 
-      <button @click="login">Connexion</button>
-      <button @click="signin">Inscription</button>
+      <button @click="login" class="btn btn-primary m-3">Connexion</button>
+      <button @click="signin" class="btn btn-primary m-3">Inscription</button>
     </div>
     <div v-else>
       {{ user.email }}
       <button @click="logout" class="btn btn-danger btn-sm">Déconnexion</button>
       <hr />
       <router-link to="/catalogue-gestion"
-        ><button class="btn btn-info">Mes Catalogues de produits</button></router-link
+        ><button class="btn btn-primary">Mes catalogues</button></router-link
       >
     </div>
 
