@@ -47,14 +47,14 @@ export default {
         .from("produits")
         .select("*")
         .order("created_at", { ascending: false }, "updated_at", { ascending: false })
-        .range(this.range_start, this.range_start + 10);
+        .range(this.range_start, this.range_start + 20);
       if (error) {
         console.log(error);
       } else {
         console.log(data);
         // this.produits.concat(data);
         this.produits = [...this.produits, ...data];
-        this.range_start += 11;
+        this.range_start += 21;
       }
     },
   },
